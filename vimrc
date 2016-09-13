@@ -28,12 +28,10 @@ end
 
 " Plug-ins
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'ap/vim-buftabline'
 Plug 'mattn/emmet-vim'
-Plug 'editorconfig/editorconfig-vim'
+
 
 " Language support
 Plug 'wlangstroth/vim-racket'
@@ -63,7 +61,6 @@ set softtabstop=4           " remove a full pseudo-TAB when i press <BS>
 
 " Modify some other settings about files
 set encoding=utf-8          " always use unicode (god damnit, windows)
-set backspace=indent,eol,start " backspace always works on insert mode
 set hidden
 
 " ///////////////////////////////
@@ -105,6 +102,7 @@ endif
 " ///////////////////////////////
 " 6. MAPS AND FUNCTIONS
 " ///////////////////////////////
+
 let mapleader=","
 
 " Make window navigation less painful.
