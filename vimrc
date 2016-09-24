@@ -12,6 +12,8 @@
 " 1. GENERIC SETTINGS
 " ///////////////////////////////
 
+source $VIMRUNTIME/mswin.vim " enable default windows settings like Ctrl - C and Ctrl - V
+
 set nocompatible " disable vi compatibility mode
 set history=1000 " increase history size
 
@@ -48,10 +50,15 @@ call plug#end()
 " 3. FILE SETTINGS
 " ///////////////////////////////
 
-" 70s are over and swap files are part of the past.
-" If you need to backup something, use Git, for God's sake.
-set noswapfile
-set nobackup
+" Stop creating backup files, please use Git for backups
+
+set nobackup       
+set nowritebackup   
+set noswapfile     
+
+set backspace=indent,eol,start 
+
+set lines=40 columns=170 " Default window size
 
 " Modify indenting settings
 set autoindent              " autoindent always ON.
@@ -130,3 +137,31 @@ nmap <Leader>nt :NERDTreeToggle<cr>
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
+
+
+behave mswin
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
