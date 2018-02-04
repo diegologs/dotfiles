@@ -8,18 +8,18 @@
 " 5. Colors and UI
 " 6. Maps and functions
 
-" ///////////////////////////////
+"-----------------------------------------
 " 1. GENERIC SETTINGS
-" ///////////////////////////////
-
+"-----------------------------------------
+"
 source $VIMRUNTIME/mswin.vim " enable default windows settings like Ctrl - C and Ctrl - V
 
 set nocompatible " disable vi compatibility mode
 set history=1000 " increase history size
 
-" ///////////////////////////////
+"-----------------------------------------
 " 2. VIM-PLUG PLUGINS
-" ///////////////////////////////
+"-----------------------------------------
 
 " Init vim-plug
 if has("win32") || has("win64")
@@ -29,26 +29,24 @@ else
 end
 
 " Plug-ins
-Plug 'scrooloose/nerdtree'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'ap/vim-buftabline'
-Plug 'mattn/emmet-vim'
-
-
+Plug 'scrooloose/nerdtree'          " Sidebar to display project structure
+Plug 'ctrlpvim/ctrlp.vim'           " To search files with name, default shorcut: Ctrl + P, changed to Ctrl + T
+Plug 'ap/vim-buftabline'            " Displays bar with open files  
+Plug 'mattn/emmet-vim'              " Emmet to code html
+Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
+Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows
+Plug 'valloric/MatchTagAlways'      " To highlight html close tag
+    
 " Language support
-Plug 'wlangstroth/vim-racket'
-Plug 'tfnico/vim-gradle'
-Plug 'tpope/vim-rails'
+Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-endwise'
-Plug 'alvan/vim-closetag'
-Plug 'rust-lang/rust.vim'
-Plug 'racer-rust/vim-racer'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
-" ///////////////////////////////
+"-----------------------------------------
 " 3. FILE SETTINGS
-" ///////////////////////////////
+"-----------------------------------------
 
 " Stop creating backup files, please use Git for backups
 
@@ -58,21 +56,20 @@ set noswapfile
 
 set backspace=indent,eol,start 
 
-set lines=40 columns=170 " Default window size
-
 " Modify indenting settings
+"
 set autoindent              " autoindent always ON.
 set expandtab               " expand tabs
 set shiftwidth=4            " spaces for autoindenting
 set softtabstop=4           " remove a full pseudo-TAB when i press <BS>
 
 " Modify some other settings about files
-set encoding=utf-8          " always use unicode (god damnit, windows)
+set encoding=utf-8          " always use unicode 
 set hidden
 
-" ///////////////////////////////
+"-----------------------------------------
 " 4. SPECIFIC FILETYPE SETTINGS
-" ///////////////////////////////
+"-----------------------------------------
 
 " Some programming languages work better when only 2 spaces padding is used.
 autocmd FileType html,css,sass,scss,javascript setlocal sw=2 sts=2
@@ -80,15 +77,10 @@ autocmd FileType json setlocal sw=2 sts=2
 autocmd FileType ruby,eruby setlocal sw=2 sts=2
 autocmd FileType yaml setlocal sw=2 sts=2
 
-let g:closetag_filenames = "*.html,*.xhtml,*.phtml,*.html.erb,*.xml.erb,*.xml"
 
-"let g:racer_cmd="/Users/danirod/.cargo/bin/racer"
-"let $RUST_SRC_PATH="/usr/local/src/rustc/src"
-
-
-" ///////////////////////////////
+"-----------------------------------------
 " 5. COLORS AND UI
-" ///////////////////////////////
+"-----------------------------------------
 
 set fillchars+=vert:\   " Remove unpleasant pipes from vertical splits
                         " Sauce on this: http://stackoverflow.com/a/9001540
@@ -102,13 +94,10 @@ set number              " show line numbers
 set relativenumber      " show numbers as relative by default
 set showmatch           " higlight matching parentheses and brackets
 
-if &t_Co >= 256 || has("gui_running")
-    set cursorcolumn    " cursor column is fine but only with enough colors
-endif
 
-" ///////////////////////////////
+"-----------------------------------------
 " 6. MAPS AND FUNCTIONS
-" ///////////////////////////////
+"-----------------------------------------
 
 let mapleader=","
 
@@ -120,6 +109,7 @@ map <C-l> <C-w>l
 
 " Move CtrlP to CtrlT (CtrlP is for buffers)
 let g:ctrlp_map = '<C-t>'
+let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 " Working with buffers is cool.
 set hidden
@@ -131,13 +121,12 @@ imap <C-P> <Esc>:bprev<CR>a
 " NERDTree: map ,nt for toggling NERDTree. Faster than the old :NT command
 " since I don't have to hold Shift whenever I want to display NERDTree.
 nmap <Leader>nt :NERDTreeToggle<cr>
-:let g:NERDTreeWinSize=20
+:let g:NERDTreeWinSize=40
 
 " Relative numbering is pretty useful for motions (3g, 5k...). However I'd
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
-
 
 behave mswin
 

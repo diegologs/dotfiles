@@ -8,3 +8,5 @@ repository:
 [https://github.com/junegunn/vim-plug](https://github.com/junegunn/vim-plug)
 
 After that, you can use **:PlugInstall** command to start installing each plugin.
+
+Last update: 02/04/2018
