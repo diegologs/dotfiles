@@ -36,8 +36,16 @@ report.in.labels            = ID,Description
 
 context.home=+@home +@computer
 context.outside=+@phone
-taskd.server=freecinc.com:53589
-taskd.key=\/home\/diegolopgr\/.task\/freecinc_7daad8b0.key.pem
-taskd.certificate=\/home\/diegolopgr\/.task\/freecinc_7daad8b0.cert.pem
-taskd.ca=\/home\/diegolopgr\/.task\/freecinc_7daad8b0.ca.pem
-taskd.credentials=FreeCinc\/freecinc_7daad8b0\/a8680ccf-3f88-4aa9-9a57-f90e3b05e575
+
+#taskd.server=freecinc.com:53589
+#taskd.key=\/home\/diegolopgr\/.task\/freecinc_7daad8b0.key.pem
+#taskd.certificate=\/home\/diegolopgr\/.task\/freecinc_7daad8b0.cert.pem
+#taskd.ca=\/home\/diegolopgr\/.task\/freecinc_7daad8b0.ca.pem
+#taskd.credentials=FreeCinc\/freecinc_7daad8b0\/a8680ccf-3f88-4aa9-9a57-f90e3b05e575
+
+taskd.certificate=\/home\/diegolopgr\/.task\/private.certificate.pem
+taskd.key=\/home\/diegolopgr\/.task\/private.key.pem
+taskd.ca=\/home\/diegolopgr\/.task\/ca.cert.pem
+taskd.server=taskwarrior.inthe.am:53589
+taskd.credentials=inthe_am/diegolopgr/f36cdf42-f47c-4385-a778-fe71242c4440
+taskd.trust=ignore hostname
