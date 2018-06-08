@@ -9,4 +9,4 @@ repository:
 
 After that, you can use **:PlugInstall** command to start installing each plugin.
 
-Last update: 02/04/2018
+Last update: 06/08/2018

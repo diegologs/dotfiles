@@ -9,7 +9,7 @@ PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-ZSH_THEME="gentoo"
+ZSH_THEME="af-magic"
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -97,4 +97,6 @@ source $ZSH/oh-my-zsh.sh
 
 alias in='task add +in'
 
-
+if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
+        source /etc/profile.d/vte.sh
+fi
