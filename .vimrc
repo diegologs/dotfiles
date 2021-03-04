@@ -4,7 +4,7 @@
 " 1. Generic settings
 " 2. Vim-Plug plugins
 " 3. File settings
-" 4. Specific filetype settings
+" e. Specific filetype settings
 " 5. Colors and UI
 " 6. Maps and functions
 
@@ -36,7 +36,10 @@ Plug 'mattn/emmet-vim'              " Emmet to code html
 Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
 Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
-    
+Plug 'vim-airline/vim-airline'      " Fancy bar
+Plug 'mileszs/ack.vim'              " To make global searchs. Use command :Ack and install ack in the system
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
+
 " Language support
 Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-endwise'
@@ -67,15 +70,16 @@ set softtabstop=4           " remove a full pseudo-TAB when i press <BS>
 set encoding=utf-8          " always use unicode 
 set hidden
 
+set ignorecase
+
 "-----------------------------------------
 " 4. SPECIFIC FILETYPE SETTINGS
 "-----------------------------------------
 
 " Some programming languages work better when only 2 spaces padding is used.
-autocmd FileType html,css,sass,scss,javascript setlocal sw=2 sts=2
-autocmd FileType json setlocal sw=2 sts=2
-autocmd FileType ruby,eruby setlocal sw=2 sts=2
-autocmd FileType yaml setlocal sw=2 sts=2
+autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte setlocal shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.yaml setlocal shiftwidth=2 softtabstop=2
 
 
 "-----------------------------------------
@@ -107,16 +111,14 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Move CtrlP to CtrlT (CtrlP is for buffers)
-let g:ctrlp_map = '<C-t>'
 let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
 
 " Working with buffers is cool.
 set hidden
-map <C-N>  :bnext<CR>
-map <C-P>  :bprev<CR>
-imap <C-N> <Esc>:bnext<CR>a
-imap <C-P> <Esc>:bprev<CR>a
+map <C-d>  :bnext<CR>
+map <C-a>  :bprev<CR>
+imap <C-D> <Esc>:bnext<CR>a
+imap <C-A> <Esc>:bprev<CR>a
 
 " NERDTree: map ,nt for toggling NERDTree. Faster than the old :NT command
 " since I don't have to hold Shift whenever I want to display NERDTree.
@@ -127,6 +129,21 @@ nmap <Leader>nt :NERDTreeToggle<cr>
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
+
+" Vim Coc autocompletion with tab like vscode
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ?
+      \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+    function! s:check_back_space() abort
+      let col = col('.') - 1
+      return !col || getline('.')[col - 1]  =~# '\s'
+    endfunction
+
+    let g:coc_snippet_next = '<tab>'
 
 behave mswin
 
