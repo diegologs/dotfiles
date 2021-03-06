@@ -40,12 +40,16 @@ Plug 'vim-airline/vim-airline'      " Fancy bar
 Plug 'mileszs/ack.vim'              " To make global searchs. Use command :Ack and install ack in the system
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
 
+Plug 'gruvbox-community/gruvbox'    " Color scheme
+
 " Language support
 Plug 'leafgarland/typescript-vim'
 Plug 'tpope/vim-endwise'
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
+
+colorscheme gruvbox
 
 "-----------------------------------------
 " 3. FILE SETTINGS
@@ -129,6 +133,12 @@ nmap <Leader>nt :NERDTreeToggle<cr>
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
+
+" Vim easy-motion
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_smartsign_us = 1 " 1 will match 1 and !
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
 " Vim Coc autocompletion with tab like vscode
 inoremap <silent><expr> <TAB>
