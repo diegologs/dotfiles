@@ -141,6 +141,12 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
 " Vim Coc autocompletion with tab like vscode
+
+" Press ,gd to go to definition
+nmap <leader>gd <Plug>(coc-definition) 
+" Press ,gr to find references of a variable
+nmap <leader>gr <Plug>(coc-references)
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ?
