@@ -50,6 +50,7 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 colorscheme gruvbox
+set background=dark
 
 "-----------------------------------------
 " 3. FILE SETTINGS
