@@ -1,5 +1,5 @@
 " FROSTQ VIM SETTINGS
-" 
+"
 " TABLE OF CONTENTS:
 " 1. Generic settings
 " 2. Vim-Plug plugins
@@ -34,10 +34,10 @@ Plug 'scrooloose/nerdtree'          " Sidebar to display project structure
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'             " To search files with Control + P
 
-Plug 'ap/vim-buftabline'            " Displays bar with open files  
+Plug 'ap/vim-buftabline'            " Displays bar with open files
 Plug 'mattn/emmet-vim'              " Emmet to code html
 Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
-Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows
+Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows. Use command :BD instead of :bd
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
 Plug 'vim-airline/vim-airline'      " Fancy bar
 Plug 'mileszs/ack.vim'              " To make global searchs. Use command :Ack and install ack in the system
@@ -62,11 +62,11 @@ set background=dark
 
 " Stop creating backup files, please use Git for backups
 
-set nobackup       
-set nowritebackup   
-set noswapfile     
+set nobackup
+set nowritebackup
+set noswapfile
 
-set backspace=indent,eol,start 
+set backspace=indent,eol,start
 
 " Modify indenting settings
 "
@@ -76,11 +76,15 @@ set shiftwidth=4            " spaces for autoindenting
 set softtabstop=4           " remove a full pseudo-TAB when i press <BS>
 
 " Modify some other settings about files
-set encoding=utf-8          " always use unicode 
+set encoding=utf-8          " always use unicode
 set hidden
 
 set ignorecase
 
+" Display trailing whitespaces
+highlight SpecialKey ctermfg=DarkGray
+set listchars=tab:>-,trail:~
+set list
 "-----------------------------------------
 " 4. SPECIFIC FILETYPE SETTINGS
 "-----------------------------------------
@@ -149,7 +153,7 @@ let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 " Vim Coc autocompletion with tab like vscode
 
 " Press ,gd to go to definition
-nmap <leader>gd <Plug>(coc-definition) 
+nmap <leader>gd <Plug>(coc-definition)
 " Press ,gr to find references of a variable
 nmap <leader>gr <Plug>(coc-references)
 
