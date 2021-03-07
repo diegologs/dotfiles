@@ -30,7 +30,10 @@ end
 
 " Plug-ins
 Plug 'scrooloose/nerdtree'          " Sidebar to display project structure
-Plug 'ctrlpvim/ctrlp.vim'           " To search files with name, default shorcut: Ctrl + P, changed to Ctrl + T
+
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'             " To search files with Control + P
+
 Plug 'ap/vim-buftabline'            " Displays bar with open files  
 Plug 'mattn/emmet-vim'              " Emmet to code html
 Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
@@ -41,6 +44,7 @@ Plug 'mileszs/ack.vim'              " To make global searchs. Use command :Ack a
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
 
 Plug 'gruvbox-community/gruvbox'    " Color scheme
+" Plug 'morhetz/gruvbox'              " Gruvbox alternative
 
 " Language support
 Plug 'leafgarland/typescript-vim'
@@ -116,8 +120,6 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-let g:ctrlp_custom_ignore = '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$'
-
 " Working with buffers is cool.
 set hidden
 map <C-d>  :bnext<CR>
@@ -134,6 +136,9 @@ nmap <Leader>nt :NERDTreeToggle<cr>
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
+
+" Fzf to search files mapped into Control + P and ignore .gitignore files
+nmap <C-P> :GFiles --cached --others --exclude-standard<CR>
 
 " Vim easy-motion
 let g:EasyMotion_smartcase = 1
