@@ -32,17 +32,15 @@ end
 Plug 'scrooloose/nerdtree'          " Sidebar to display project structure
 
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'             " To search files with Control + P
+Plug 'junegunn/fzf.vim'             " To search files like Control + P. Install ag to search in files (Control + T)
 
 Plug 'ap/vim-buftabline'            " Displays bar with open files
 Plug 'mattn/emmet-vim'              " Emmet to code html
 Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
 Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows. Use command :BD instead of :bd
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
-Plug 'vim-airline/vim-airline'      " Fancy bar
-Plug 'mileszs/ack.vim'              " To make global searchs. Use command :Ack and install ack in the system
+Plug 'itchyny/lightline.vim'        " Fancy bar. Vim-airline has poor performance
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
-
 Plug 'gruvbox-community/gruvbox'    " Color scheme
 " Plug 'morhetz/gruvbox'              " Gruvbox alternative
 
@@ -143,6 +141,9 @@ imap <F5> <ESC>:set invrelativenumber<CR>a
 
 " Fzf to search files mapped into Control + P and ignore .gitignore files
 nmap <C-P> :GFiles --cached --others --exclude-standard<CR>
+
+" Search text inside project files using Control + T
+nmap <C-T> :Ag<CR>
 
 " Vim easy-motion
 let g:EasyMotion_smartcase = 1
