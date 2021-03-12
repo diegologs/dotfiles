@@ -36,10 +36,10 @@ Plug 'junegunn/fzf.vim'             " To search files like Control + P. Install 
 
 Plug 'ap/vim-buftabline'            " Displays bar with open files
 Plug 'mattn/emmet-vim'              " Emmet to code html
-Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
+Plug 'justinmk/vim-sneak'           " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w. To seach backwards use ,,b. Then type 2 chars
 Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows. Use command :BD instead of :bd
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
-Plug 'itchyny/lightline.vim'        " Fancy bar. Vim-airline has poor performance
+Plug 'itchyny/lightline.vim'        " Fancy bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
 Plug 'gruvbox-community/gruvbox'    " Color scheme
 " Plug 'morhetz/gruvbox'              " Gruvbox alternative
@@ -145,11 +145,9 @@ nmap <C-P> :GFiles --cached --others --exclude-standard<CR>
 " Search text inside project files using Control + T
 nmap <C-T> :Ag<CR>
 
-" Vim easy-motion
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_use_smartsign_us = 1 " 1 will match 1 and !
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
+" Vim sneak-peak. Use ; to go no next macth. Always write two chars
+nmap <leader><leader>w <Plug>SneakLabel_s
+nmap <leader><leader>b <Plug>SneakLabel_S
 
 " Vim Coc autocompletion with tab like vscode
 
