@@ -145,9 +145,11 @@ nmap <C-P> :GFiles --cached --others --exclude-standard<CR>
 " Search text inside project files using Control + T
 nmap <C-T> :Ag<CR>
 
-" Vim sneak-peak. Use ; to go no next macth. Always write two chars
+" Vim vim-sneak. Use ; to go no next macth. Always write two chars
 nmap <leader><leader>w <Plug>SneakLabel_s
 nmap <leader><leader>b <Plug>SneakLabel_S
+nmap <leader><leader>s <Plug>Sneak_s
+nmap <leader><leader>x <Plug>Sneak_S
 
 " Vim Coc autocompletion with tab like vscode
 
