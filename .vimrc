@@ -41,22 +41,25 @@ Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted wi
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
 Plug 'itchyny/lightline.vim'        " Fancy bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
-" Plug 'gruvbox-community/gruvbox'    " Color scheme
+
+
+" Themes
+Plug 'gruvbox-community/gruvbox'    " Color scheme
 " Plug 'morhetz/gruvbox'            " Gruvbox alternative
- Plug 'NLKNguyen/papercolor-theme' " In case you want a light theme
+Plug 'lifepillar/vim-solarized8'    " Solarized for light theme
+" Plug 'NLKNguyen/papercolor-theme' " Another good light theme
 
 " Language support
 Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
-" colorscheme gruvbox
-" set background=dark
-
+let &t_ut='' "Certain terminals change the vim color for the bg
 set background=light
-colorscheme PaperColor
 
-let g:lightline = { 'colorscheme': 'PaperColor' }
+autocmd vimenter * ++nested colorscheme solarized8_flat
+
+let g:lightline = { 'colorscheme': 'wombat' }
 "-----------------------------------------
 " 3. FILE SETTINGS
 "-----------------------------------------
@@ -83,9 +86,9 @@ set hidden
 set ignorecase
 
 " Display trailing whitespaces
-highlight SpecialKey ctermfg=DarkGray
-set listchars=tab:>-,trail:~
-set list
+" highlight SpecialKey ctermfg=DarkGray
+" set listchars=tab:>-,trail:~
+" set list
 "-----------------------------------------
 " 4. SPECIFIC FILETYPE SETTINGS
 "-----------------------------------------
@@ -102,8 +105,7 @@ autocmd BufRead,BufNewFile *.yaml setlocal shiftwidth=2 softtabstop=2
 
 set fillchars+=vert:\   " Remove unpleasant pipes from vertical splits
                         " Sauce on this: http://stackoverflow.com/a/9001540
-
-set showmode            " always show which more are we in
+set noshowmode          " We don't need to know the insert/normal mode casue we have lightline
 set laststatus=2        " always show statusbar
 set wildmenu            " enable visual wildmenu
 
