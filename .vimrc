@@ -5,7 +5,7 @@
 " 2. Vim-Plug plugins
 " 3. File settings
 " e. Specific filetype settings
-" 5. Colors and UI
+" 5. UI
 " 6. Maps and functions
 
 "-----------------------------------------
@@ -42,7 +42,6 @@ Plug 'valloric/MatchTagAlways'      " To highlight html close tag
 Plug 'itchyny/lightline.vim'        " Fancy bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
 
-
 " Themes
 Plug 'gruvbox-community/gruvbox'    " Color scheme
 " Plug 'morhetz/gruvbox'            " Gruvbox alternative
@@ -59,7 +58,7 @@ set background=light
 
 autocmd vimenter * ++nested colorscheme solarized8_flat
 
-let g:lightline = { 'colorscheme': 'wombat' }
+let g:lightline = { 'colorscheme': 'solarized' }
 "-----------------------------------------
 " 3. FILE SETTINGS
 "-----------------------------------------
@@ -100,7 +99,7 @@ autocmd BufRead,BufNewFile *.yaml setlocal shiftwidth=2 softtabstop=2
 
 
 "-----------------------------------------
-" 5. COLORS AND UI
+" 5. UI
 "-----------------------------------------
 
 set fillchars+=vert:\   " Remove unpleasant pipes from vertical splits
