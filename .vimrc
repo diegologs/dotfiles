@@ -37,7 +37,7 @@ Plug 'junegunn/fzf.vim'             " To search files like Control + P. Install 
 Plug 'ap/vim-buftabline'            " Displays bar with open files
 Plug 'mattn/emmet-vim'              " Emmet to code html
 Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
-Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows. Use command :BD instead of :bd
+Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows. Use command :BD instead of :bd or mapping (Control + Q)
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
 Plug 'itchyny/lightline.vim'        " Fancy bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
@@ -171,6 +171,9 @@ nmap <leader>gd <Plug>(coc-definition)
 " Press ,gr to find references of a variable
 nmap <leader>gr <Plug>(coc-references)
 
+" Press Control + q to close file without afecting splits
+nmap <C-q> :BD<cr>
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
       \ coc#expandableOrJumpable() ?
@@ -211,4 +214,3 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
-
