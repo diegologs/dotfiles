@@ -59,6 +59,7 @@ set background=light
 autocmd vimenter * ++nested colorscheme solarized8_flat
 
 let g:lightline = { 'colorscheme': 'solarized' }
+
 "-----------------------------------------
 " 3. FILE SETTINGS
 "-----------------------------------------
@@ -83,6 +84,8 @@ set encoding=utf-8          " always use unicode
 set hidden
 
 set ignorecase
+
+set scrolloff=8                 " Keep at least 8 lines below cursor
 
 " Display trailing whitespaces
 " highlight SpecialKey ctermfg=DarkGray
@@ -208,3 +211,4 @@ function MyDiff()
   endif
   silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
 endfunction
+
