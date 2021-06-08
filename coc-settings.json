@@ -1,0 +1,8 @@
+{                                                                                                                                                      
+  "coc.preferences.hoverTarget": "preview",
+  "signature.enable": false,
+  "suggest.echodocSupport": true,
+  "suggest.enablePreview": false,
+  "suggest.floatEnable": false,
+  "suggest.triggerCompletionWait": 500
+}     
