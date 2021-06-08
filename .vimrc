@@ -45,20 +45,27 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc exte
 " Themes
 Plug 'gruvbox-community/gruvbox'    " Color scheme
 " Plug 'morhetz/gruvbox'            " Gruvbox alternative
-Plug 'lifepillar/vim-solarized8'    " Solarized for light theme
+" Plug 'lifepillar/vim-solarized8'    " Solarized for light theme
 " Plug 'NLKNguyen/papercolor-theme' " Another good light theme
 
 " Language support
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'         " Multiple files
+Plug 'posva/vim-vue'                " Vue files
+Plug 'vim-scripts/svg.vim'          " SVG files
+Plug 'leafOfTree/vim-svelte-plugin' " Svelte files
+Plug 'elzr/vim-json'                " JSON files
+Plug 'pangloss/vim-javascript'      " Javascript type files
+Plug 'sheerun/html5.vim'            " HTML5 support
 
 call plug#end()
 
 let &t_ut='' "Certain terminals change the vim color for the bg
-set background=light
+set background=dark
 
-autocmd vimenter * ++nested colorscheme solarized8_flat
+autocmd vimenter * ++nested colorscheme gruvbox
+" autocmd vimenter * ++nested colorscheme solarized8_flat
 
-let g:lightline = { 'colorscheme': 'solarized' }
+" let g:lightline = { 'colorscheme': 'solarized' }
 
 "-----------------------------------------
 " 3. FILE SETTINGS
@@ -91,6 +98,7 @@ set scrolloff=8                 " Keep at least 8 lines below cursor
 " highlight SpecialKey ctermfg=DarkGray
 " set listchars=tab:>-,trail:~
 " set list
+
 "-----------------------------------------
 " 4. SPECIFIC FILETYPE SETTINGS
 "-----------------------------------------
@@ -113,8 +121,12 @@ set wildmenu            " enable visual wildmenu
 
 set nowrap              " don't wrap long lines
 set number              " show line numbers
-set relativenumber      " show numbers as relative by default
 set showmatch           " higlight matching parentheses and brackets
+
+set nohlsearch
+
+set lazyredraw
+set ttyfast
 
 
 "-----------------------------------------
@@ -165,6 +177,8 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
 " Vim Coc autocompletion with tab like vscode
+
+set updatetime=100
 
 " Press ,gd to go to definition
 nmap <leader>gd <Plug>(coc-definition)
