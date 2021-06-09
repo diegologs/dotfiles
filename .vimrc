@@ -56,6 +56,7 @@ Plug 'leafOfTree/vim-svelte-plugin' " Svelte files
 Plug 'elzr/vim-json'                " JSON files
 Plug 'pangloss/vim-javascript'      " Javascript type files
 Plug 'sheerun/html5.vim'            " HTML5 support
+Plug 'cakebaker/scss-syntax.vim'    " SCSS support
 
 call plug#end()
 
