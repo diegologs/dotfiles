@@ -152,6 +152,8 @@ imap <C-A> <Esc>:bprev<CR>a
 " NERDTree: map ,nt for toggling NERDTree. Faster than the old :NT command
 " since I don't have to hold Shift whenever I want to display NERDTree.
 nmap <Leader>nt :NERDTreeToggle<cr>
+map <Leader>nf :NERDTreeFind<CR>
+
 :let g:NERDTreeWinSize=40
 
 " Relative numbering is pretty useful for motions (3g, 5k...). However I'd
