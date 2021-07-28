@@ -12,10 +12,17 @@
 " 1. GENERIC SETTINGS
 "-----------------------------------------
 "
-source $VIMRUNTIME/mswin.vim " enable default windows settings like Ctrl - C and Ctrl - V
 
 set nocompatible " disable vi compatibility mode
 set history=1000 " increase history size
+
+set encoding=utf-8          " always use unicode
+set hidden
+set foldmethod=manual       " To avoid performance issues, I never fold anything so...
+set lazyredraw              " Buffer the draw of the screen to have better performance
+set ttyfast                 " Set the max amount of characters to send to the terminal. Better performance
+
+set scrolloff=8                 " Keep at least 8 lines below cursor
 
 "-----------------------------------------
 " 2. VIM-PLUG PLUGINS
@@ -41,32 +48,25 @@ Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted wi
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
 Plug 'itchyny/lightline.vim'        " Fancy bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
+Plug 'preservim/nerdcommenter'      " To comment / uncomment things. Default shortcut ,cn to comment and ,cu to uncomment
 
 " Themes
 Plug 'gruvbox-community/gruvbox'    " Color scheme
 " Plug 'morhetz/gruvbox'            " Gruvbox alternative
-" Plug 'lifepillar/vim-solarized8'    " Solarized for light theme
+Plug 'lifepillar/vim-solarized8'    " Solarized for light theme
 " Plug 'NLKNguyen/papercolor-theme' " Another good light theme
 
 " Language support
-" Plug 'sheerun/vim-polyglot'         " Multiple files
-Plug 'posva/vim-vue'                " Vue files
-Plug 'vim-scripts/svg.vim'          " SVG files
-Plug 'leafOfTree/vim-svelte-plugin' " Svelte files
-Plug 'elzr/vim-json'                " JSON files
-Plug 'pangloss/vim-javascript'      " Javascript type files
-Plug 'sheerun/html5.vim'            " HTML5 support
-Plug 'cakebaker/scss-syntax.vim'    " SCSS support
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
 let &t_ut='' "Certain terminals change the vim color for the bg
-set background=dark
+set background=light
 
-autocmd vimenter * ++nested colorscheme gruvbox
-" autocmd vimenter * ++nested colorscheme solarized8_flat
+autocmd vimenter * ++nested colorscheme solarized8_flat
 
-" let g:lightline = { 'colorscheme': 'solarized' }
+let g:lightline = { 'colorscheme': 'solarized' }
 
 "-----------------------------------------
 " 3. FILE SETTINGS
@@ -87,25 +87,18 @@ set expandtab               " expand tabs
 set shiftwidth=4            " spaces for autoindenting
 set softtabstop=4           " remove a full pseudo-TAB when i press <BS>
 
-" Modify some other settings about files
-set encoding=utf-8          " always use unicode
-set hidden
-
 set ignorecase
-
-set scrolloff=8                 " Keep at least 8 lines below cursor
 
 " Display trailing whitespaces
 " highlight SpecialKey ctermfg=DarkGray
 " set listchars=tab:>-,trail:~
 " set list
-
 "-----------------------------------------
 " 4. SPECIFIC FILETYPE SETTINGS
 "-----------------------------------------
 
 " Some programming languages work better when only 2 spaces padding is used.
-autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte setlocal shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.liquid,*.js,*.ts,*.vue,*.jsx,*.svelte setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.yaml setlocal shiftwidth=2 softtabstop=2
 
@@ -124,11 +117,6 @@ set nowrap              " don't wrap long lines
 set number              " show line numbers
 set showmatch           " higlight matching parentheses and brackets
 
-set nohlsearch
-
-set lazyredraw
-set ttyfast
-
 
 "-----------------------------------------
 " 6. MAPS AND FUNCTIONS
@@ -143,7 +131,6 @@ map <C-k> <C-w>k
 map <C-l> <C-w>l
 
 " Working with buffers is cool.
-set hidden
 map <C-d>  :bnext<CR>
 map <C-a>  :bprev<CR>
 imap <C-D> <Esc>:bnext<CR>a
@@ -173,6 +160,11 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview({'options': '--exact --delimiter : --nth 4..'}, 'right:50%:hidden', '?'),
   \   <bang>0)
 
+" Vim nerd commenter
+" Add spaces after comment delimiters by default
+:let g:NERDSpaceDelims=1
+nmap <leader>ct <Plug>NERDCommenterToggle
+
 " Vim easy-motion
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_use_smartsign_us = 1 " 1 will match 1 and !
@@ -180,8 +172,8 @@ let g:EasyMotion_use_upper = 1
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
 " Vim Coc autocompletion with tab like vscode
-
-set updatetime=100
+set updatetime=100 "Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays
+" set shortmess+=c   " Don't pass messages to ins-completion-menu
 
 " Press ,gd to go to definition
 nmap <leader>gd <Plug>(coc-definition)
@@ -205,29 +197,3 @@ inoremap <silent><expr> <TAB>
 
     let g:coc_snippet_next = '<tab>'
 
-behave mswin
-
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  let eq = ''
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      let cmd = '""' . $VIMRUNTIME . '\diff"'
-      let eq = '"'
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
-endfunction
