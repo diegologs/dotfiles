@@ -12,8 +12,6 @@
 " 1. GENERIC SETTINGS
 "-----------------------------------------
 "
-source $VIMRUNTIME/mswin.vim " enable default windows settings like Ctrl - C and Ctrl - V
-
 set nocompatible " disable vi compatibility mode
 set history=1000 " increase history size
 
@@ -36,11 +34,14 @@ Plug 'junegunn/fzf.vim'             " To search files like Control + P. Install 
 
 Plug 'ap/vim-buftabline'            " Displays bar with open files
 Plug 'mattn/emmet-vim'              " Emmet to code html
-Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
-Plug 'qpkorr/vim-bufkill'           " To close files without closing splitted windows. Use command :BD instead of :bd or mapping (Control + Q)
+" Plug 'easymotion/vim-easymotion'    " Command to move in the lines, it displays letters to move faster. Default shortcut: ,,w
+Plug 'justinmk/vim-sneak'           " Alternative to easy-motion but you have to use the letter s and type two chars
+Plug 'qpkorr/vim-bufkill'         " To close files without closing splitted windows. Use command :BD instead of :bd or mapping (Control + Q)
 Plug 'valloric/MatchTagAlways'      " To highlight html close tag
 Plug 'itchyny/lightline.vim'        " Fancy bar
 Plug 'neoclide/coc.nvim', {'branch': 'release'} " Autocompletion, check coc extensions to install
+Plug 'preservim/nerdcommenter'      " To comment / uncomment things. Default shortcut ,cn to comment and ,cu to uncomment
+Plug 'tpope/vim-surround'           " To change the quotes with doublequotes or viceversa. Uses cs' for example and the character you want
 
 " Themes
 Plug 'gruvbox-community/gruvbox'    " Color scheme
@@ -54,6 +55,7 @@ Plug 'posva/vim-vue'                " Vue files
 Plug 'vim-scripts/svg.vim'          " SVG files
 Plug 'leafOfTree/vim-svelte-plugin' " Svelte files
 Plug 'elzr/vim-json'                " JSON files
+let g:vim_json_syntax_conceal = 0
 Plug 'pangloss/vim-javascript'      " Javascript type files
 Plug 'sheerun/html5.vim'            " HTML5 support
 Plug 'cakebaker/scss-syntax.vim'    " SCSS support
@@ -93,7 +95,8 @@ set hidden
 
 set ignorecase
 
-set scrolloff=8                 " Keep at least 8 lines below cursor
+set scrolloff=8             " Keep at least 8 lines below cursor
+set foldmethod=manual       " To avoid performance issues, I never fold anything so...   
 
 " Display trailing whitespaces
 " highlight SpecialKey ctermfg=DarkGray
@@ -116,6 +119,7 @@ autocmd BufRead,BufNewFile *.yaml setlocal shiftwidth=2 softtabstop=2
 
 set fillchars+=vert:\   " Remove unpleasant pipes from vertical splits
                         " Sauce on this: http://stackoverflow.com/a/9001540
+
 set noshowmode          " We don't need to know the insert/normal mode casue we have lightline
 set laststatus=2        " always show statusbar
 set wildmenu            " enable visual wildmenu
@@ -149,6 +153,14 @@ map <C-a>  :bprev<CR>
 imap <C-D> <Esc>:bnext<CR>a
 imap <C-A> <Esc>:bprev<CR>a
 
+" Capital Y to copy to the end of the line like C or D
+nnoremap Y y$
+
+" To move in the search list but keeping the cursor in the middle of screen
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap * *zzzv
+
 " NERDTree: map ,nt for toggling NERDTree. Faster than the old :NT command
 " since I don't have to hold Shift whenever I want to display NERDTree.
 nmap <Leader>nt :NERDTreeToggle<cr>
@@ -179,8 +191,10 @@ let g:EasyMotion_use_smartsign_us = 1 " 1 will match 1 and !
 let g:EasyMotion_use_upper = 1
 let g:EasyMotion_keys = 'asdghklqwertyuiopzxcvbnmfj'
 
-" Vim Coc autocompletion with tab like vscode
+" Vim sneak
+let g:sneak#label = 1
 
+" Vim Coc autocompletion with tab like vscode
 set updatetime=100
 
 " Press ,gd to go to definition
@@ -190,6 +204,12 @@ nmap <leader>gr <Plug>(coc-references)
 
 " Press Control + q to close file without afecting splits
 nmap <C-q> :BD<cr>
+
+" Vim nerd commenter
+" Add spaces after comment delimiters by default
+:let g:NERDSpaceDelims=1
+nmap <leader>ct <Plug>NERDCommenterToggle
+vmap <leader>ct <Plug>NERDCommenterToggle
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? coc#_select_confirm() :
