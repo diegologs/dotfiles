@@ -4,7 +4,7 @@
 " 1. Generic settings
 " 2. Vim-Plug plugins
 " 3. File settings
-" e. Specific filetype settings
+" 4. Specific filetype settings
 " 5. UI
 " 6. Maps and functions
 
@@ -137,8 +137,17 @@ set ttyfast
 "-----------------------------------------
 " 6. MAPS AND FUNCTIONS
 "-----------------------------------------
+"
 
 let mapleader=","
+
+" To avoid undo points when using arrow keys
+inoremap <Left> <c-g>U<Left>
+inoremap <Right> <c-g>U<Right>
+
+" Whit leader p you can delete things without saving to register so you can
+" paste what you have before
+vnoremap <leader>p "_d
 
 " Make window navigation less painful.
 map <C-h> <C-w>h
@@ -196,6 +205,7 @@ let g:sneak#label = 1
 
 " Vim Coc autocompletion with tab like vscode
 set updatetime=100
+set pumheight=20
 
 " Press ,gd to go to definition
 nmap <leader>gd <Plug>(coc-definition)
