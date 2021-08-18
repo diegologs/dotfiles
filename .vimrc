@@ -96,7 +96,7 @@ set hidden
 set ignorecase
 
 set scrolloff=8             " Keep at least 8 lines below cursor
-set foldmethod=manual       " To avoid performance issues, I never fold anything so...   
+set foldmethod=manual       " To avoid performance issues, I never fold anything so...
 
 " Display trailing whitespaces
 " highlight SpecialKey ctermfg=DarkGray
@@ -110,7 +110,7 @@ set foldmethod=manual       " To avoid performance issues, I never fold anything
 " Some programming languages work better when only 2 spaces padding is used.
 autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
-autocmd BufRead,BufNewFile *.yaml setlocal shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.yaml,*.yml setlocal shiftwidth=2 softtabstop=2
 
 
 "-----------------------------------------
@@ -133,6 +133,14 @@ set nohlsearch
 set lazyredraw
 set ttyfast
 
+:set number
+
+:augroup numbertoggle
+:  autocmd!
+:  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+:  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+:augroup END
+
 
 "-----------------------------------------
 " 6. MAPS AND FUNCTIONS
@@ -140,6 +148,9 @@ set ttyfast
 "
 
 let mapleader=","
+
+" Snippet for console.log
+nmap <leader><leader>c oconsole.log({});<Esc>==f{a
 
 " To avoid undo points when using arrow keys
 inoremap <Left> <c-g>U<Left>
@@ -236,6 +247,11 @@ inoremap <silent><expr> <TAB>
     let g:coc_snippet_next = '<tab>'
 
 behave mswin
+
+augroup CODING_POTIONS
+    autocmd!
+    autocmd BufWritePre * %s/\s\+$//e
+augroup END
 
 set diffexpr=MyDiff()
 function MyDiff()
