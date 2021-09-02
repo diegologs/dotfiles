@@ -1,9 +1,15 @@
 lua require('plugins')
 
-"------------------------
+"----------------------------
 " General options
 "----------------------------
 
+" Stop creating backup files, please use Git for backups
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Improve performance on fast terminals 
 set lazyredraw
 set ttyfast
 
@@ -38,7 +44,7 @@ autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.sv
 autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.yaml,*.yml setlocal shiftwidth=2 softtabstop=2
 
-"---------------------------
+"----------------------------
 " Keybindings
 "----------------------------
 
