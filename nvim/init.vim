@@ -1,15 +1,9 @@
 lua require('plugins')
 
-"----------------------------
+"------------------------
 " General options
 "----------------------------
 
-" Stop creating backup files, please use Git for backups
-set nobackup
-set nowritebackup
-set noswapfile
-
-" Improve performance on fast terminals 
 set lazyredraw
 set ttyfast
 
@@ -28,6 +22,8 @@ set noshowmode              " We don't need to know the insert/normal mode casue
 set ignorecase
 set nohlsearch              " Clear search highlights
 
+set splitbelow splitright   " Set the splits to open at the right side and below
+
 " Load the colorscheme
 colorscheme tokyonight
 
@@ -38,13 +34,12 @@ highlight clear CursorLine
 " Sets the line numbering to red background:
 highlight CursorLineNR ctermbg=green
 
-
 " Some programming languages work better when only 2 spaces padding is used.
 autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.yaml,*.yml setlocal shiftwidth=2 softtabstop=2
 
-"----------------------------
+"---------------------------
 " Keybindings
 "----------------------------
 
@@ -73,6 +68,14 @@ map <C-d>  :bnext<CR>
 map <C-a>  :bprev<CR>
 imap <C-D> <Esc>:bnext<CR>a
 imap <C-A> <Esc>:bprev<CR>a
+
+" To resize window height
+nnoremap <silent> <Leader>h+ :exe "resize " . (winheight(0) * 5/4)<CR>
+nnoremap <silent> <Leader>h- :exe "resize " . (winheight(0) * 4/5)<CR>
+
+" To resize window width
+nnoremap <silent> <Leader>w+ :exe "vertical resize " . (winwidth(0) * 5/4)<CR>
+nnoremap <silent> <Leader>w- :exe "vertical resize " . (winwidth(0) * 4/5)<CR>
 
 " Capital Y to copy to the end of the line like C or D
 nnoremap Y y$
