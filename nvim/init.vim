@@ -69,6 +69,19 @@ map <C-a>  :bprev<CR>
 imap <C-D> <Esc>:bnext<CR>a
 imap <C-A> <Esc>:bprev<CR>a
 
+
+" Move up/down in wrapped lines by display lines
+noremap <silent> <Up> gk
+noremap <silent> <Down> gj
+
+noremap <silent> k gk
+noremap <silent> j gj
+noremap <silent> 0 g0
+noremap <silent> $ g$
+
+onoremap <silent> j gj
+onoremap <silent> k gk
+
 " To resize window height
 nnoremap <silent> <Leader>h+ :exe "resize " . (winheight(0) * 5/4)<CR>
 nnoremap <silent> <Leader>h- :exe "resize " . (winheight(0) * 4/5)<CR>
@@ -129,3 +142,5 @@ augroup CODING_POTIONS
     autocmd!
     autocmd BufWritePre * %s/\s\+$//e
 augroup END
+
+
