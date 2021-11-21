@@ -44,7 +44,7 @@ return packer.startup(function()
 
 	use {
 		"nvim-treesitter/nvim-treesitter",
-		event = "BufRead",
+                run = ":TSUpdate",
 		config = function()
 			require "configs.treesitter"
 		end,
@@ -54,11 +54,6 @@ return packer.startup(function()
 		"neoclide/coc.nvim",
 		branch = "release",
 		event = "BufRead",
-	}
-
-	use {
-		"sbdchd/neoformat",
-		cmd = "Neoformat",
 	}
 
 	use {
@@ -88,12 +83,20 @@ return packer.startup(function()
 		event = "InsertEnter *"
 	}
 
+        use { "evanleck/vim-svelte" }
+        use { "leafOfTree/vim-vue-plugin" }
+
+        use { "tpope/vim-surround" }
+
 	use {
 		"nvim-telescope/telescope.nvim",
 		cmd = "Telescope",
 		requires = {
 			{
 				"nvim-lua/plenary.nvim",
+			},
+			{
+				"fannheyward/telescope-coc.nvim",
 			},
 			{
 				"nvim-telescope/telescope-fzf-native.nvim",

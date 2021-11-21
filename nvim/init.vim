@@ -35,9 +35,16 @@ highlight clear CursorLine
 highlight CursorLineNR ctermbg=green
 
 " Some programming languages work better when only 2 spaces padding is used.
-autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte setlocal shiftwidth=2 softtabstop=2
+autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte,*.liquid setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
 autocmd BufRead,BufNewFile *.yaml,*.yml setlocal shiftwidth=2 softtabstop=2
+
+" No ident for svelte files
+let g:svelte_indent_script = 0
+let g:svelte_indent_style = 0
+
+" Prettier
+command! -nargs=0 Prettier :CocCommand prettier.formatFile
 
 "---------------------------
 " Keybindings
@@ -113,6 +120,7 @@ map <Leader>nf :NERDTreeFind<CR>
 " Telescope
 nmap <C-P> :Telescope git_files hidden=true <CR>
 nmap <C-T> :Telescope live_grep <CR>
+nmap <C-Y> :Telescope coc document_symbols <CR>
 
 " Relative numbering is pretty useful for motions (3g, 5k...). However I'd
 " prefer to have a way for switching relative numbers with a single map.
@@ -134,13 +142,19 @@ inoremap <silent><expr> <TAB>
 
     let g:coc_snippet_next = '<tab>'
 
+" GoTo code navigation.
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>gi <Plug>(coc-implementation)
+
 " Vim sneak
 let g:sneak#label = 1
+map f <Plug>Sneak_f
+map F <Plug>Sneak_F
 
 " Detele trailing spaces on save
 augroup CODING_POTIONS
     autocmd!
     autocmd BufWritePre * %s/\s\+$//e
 augroup END
-
 

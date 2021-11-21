@@ -65,7 +65,7 @@ telescope.setup {
    },
 }
 
-local extensions = { "themes", "terms", "fzf" }
+local extensions = { "themes", "terms", "fzf", "coc" }
 local packer_repos = [["extensions", "telescope-fzf-native.nvim"]]
 
 if vim.fn.executable "ueberzug" == 1 then
@@ -78,5 +78,5 @@ if not pcall(function()
       telescope.load_extension(ext)
    end
 end) then
- 
+
 end
