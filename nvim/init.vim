@@ -127,25 +127,40 @@ nmap <C-Y> :Telescope coc document_symbols <CR>
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
 
-" Vim coc
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ?
-      \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" Vim coq
+let g:coq_settings = { 'auto_start': 'shut-up' }
 
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
+ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
+ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
+ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
+ino <silent><expr> <CR>    pumvisible() ? "\<C-e><CR>" : "\<CR>"
+ino <silent><expr> <Tab>   pumvisible() ? "\<C-y>" : "\<Tab>"
 
-    let g:coc_snippet_next = '<tab>'
+" To install language servers:
+" npm install -g typescript typescript-language-server
+" npm install -g vls
+" npm install -g svelte-language-server
+" npm i -g vscode-langservers-extracted
 
-" GoTo code navigation.
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>gi <Plug>(coc-implementation)
+" " Vim coc
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? coc#_select_confirm() :
+"       \ coc#expandableOrJumpable() ?
+"       \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+"
+"     function! s:check_back_space() abort
+"       let col = col('.') - 1
+"       return !col || getline('.')[col - 1]  =~# '\s'
+"     endfunction
+"
+"     let g:coc_snippet_next = '<tab>'
+"
+" " GoTo code navigation.
+" nmap <leader>gd <Plug>(coc-definition)
+" nmap <leader>gr <Plug>(coc-references)
+" nmap <leader>gi <Plug>(coc-implementation)
 
 " Vim sneak
 let g:sneak#label = 1
