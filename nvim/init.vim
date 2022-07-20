@@ -34,10 +34,12 @@ highlight clear CursorLine
 " Sets the line numbering to red background:
 highlight CursorLineNR ctermbg=green
 
-" Some programming languages work better when only 2 spaces padding is used.
-autocmd BufRead,BufNewFile *.html,*.css,*.sass,*.scss,*.js,*.ts,*.vue,*.jsx,*.svelte,*.liquid setlocal shiftwidth=2 softtabstop=2
-autocmd BufRead,BufNewFile *.json setlocal shiftwidth=2 softtabstop=2
-autocmd BufRead,BufNewFile *.yaml,*.yml setlocal shiftwidth=2 softtabstop=2
+" Ident with two spaces
+set shiftwidth=2
+set softtabstop=2
+
+" .njk files as html
+au BufReadPost *.njk set syntax=html
 
 " No ident for svelte files
 let g:svelte_indent_script = 0
@@ -53,7 +55,7 @@ command! -nargs=0 Prettier :CocCommand prettier.formatFile
 let mapleader = ","
 
 " Snippet for console.log
-nmap <leader><leader>c oconsole.log({});<Esc>==f{a
+nmap <leader><leader>c oconsole.log();<Esc>==0f(a
 
 " To avoid undo points when using arrow keys
 inoremap <Left> <c-g>U<Left>
@@ -117,55 +119,29 @@ vmap <Leader>t :CommentToggle<cr>
 nmap <Leader>nt :NERDTreeToggle<cr>
 map <Leader>nf :NERDTreeFind<CR>
 
+" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
+autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
+    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
 " Telescope
 nmap <C-P> :Telescope git_files hidden=true <CR>
 nmap <C-T> :Telescope live_grep <CR>
 nmap <C-Y> :Telescope coc document_symbols <CR>
+nmap <C-U> :Telescope buffers <CR>
 
 " Relative numbering is pretty useful for motions (3g, 5k...). However I'd
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
 
-" Vim coq
-let g:coq_settings = { 'auto_start': 'shut-up' }
-
-ino <silent><expr> <Esc>   pumvisible() ? "\<C-e><Esc>" : "\<Esc>"
-ino <silent><expr> <C-c>   pumvisible() ? "\<C-e><C-c>" : "\<C-c>"
-ino <silent><expr> <BS>    pumvisible() ? "\<C-e><BS>"  : "\<BS>"
-ino <silent><expr> <CR>    pumvisible() ? "\<C-e><CR>" : "\<CR>"
-ino <silent><expr> <Tab>   pumvisible() ? "\<C-y>" : "\<Tab>"
-
-" To install language servers:
-" npm install -g typescript typescript-language-server
-" npm install -g vls
-" npm install -g svelte-language-server
-" npm i -g vscode-langservers-extracted
-
-" " Vim coc
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? coc#_select_confirm() :
-"       \ coc#expandableOrJumpable() ?
-"       \ "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-"
-"     function! s:check_back_space() abort
-"       let col = col('.') - 1
-"       return !col || getline('.')[col - 1]  =~# '\s'
-"     endfunction
-"
-"     let g:coc_snippet_next = '<tab>'
-"
-" " GoTo code navigation.
-" nmap <leader>gd <Plug>(coc-definition)
-" nmap <leader>gr <Plug>(coc-references)
-" nmap <leader>gi <Plug>(coc-implementation)
+" Coc GoTo code navigation.
+nmap <leader>gd <Plug>(coc-definition)
+nmap <leader>gr <Plug>(coc-references)
+nmap <leader>gi <Plug>(coc-implementation)
+nmap <leader>rn <Plug>(coc-rename)
 
 " Vim sneak
 let g:sneak#label = 1
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
 
 " Detele trailing spaces on save
 augroup CODING_POTIONS

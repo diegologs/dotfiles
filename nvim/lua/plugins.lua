@@ -1,129 +1,117 @@
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
-local packer_install_dir = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local packer_install_dir = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
-local plug_url_format = ''
-plug_url_format = 'https://github.com/%s'
+local plug_url_format = ""
+plug_url_format = "https://github.com/%s"
 
-local packer_repo = string.format(plug_url_format, 'wbthomason/packer.nvim')
-local install_cmd = string.format('10split |term git clone --depth=1 %s %s', packer_repo, packer_install_dir)
+local packer_repo = string.format(plug_url_format, "wbthomason/packer.nvim")
+local install_cmd = string.format("10split |term git clone --depth=1 %s %s", packer_repo, packer_install_dir)
 
 if fn.empty(fn.glob(packer_install_dir)) > 0 then
-    vim.api.nvim_echo({{'Installing packer.nvim', 'Type'}}, true, {})
+    vim.api.nvim_echo({{"Installing packer.nvim", "Type"}}, true, {})
     execute(install_cmd)
-    execute 'packadd packer.nvim'
+    execute "packadd packer.nvim"
 end
 
 vim.cmd [[packadd packer.nvim]]
 
-local packer = require'packer'
-return packer.startup(function()
+local packer = require "packer"
+return packer.startup(
+    function()
+      -- Packer can manage itself
+        use 'wbthomason/packer.nvim'
 
-    use {
-        'folke/tokyonight.nvim',
-        config = function()
-            require "configs.tokyonight"
-        end,
-    }
+      -- Best colorscheme --
+        use {
+            "folke/tokyonight.nvim",
+            config = function()
+                require "configs.tokyonight"
+            end
+        }
 
-    use {
-        'hoob3rt/lualine.nvim',
-        config = function()
-            require "configs.lualine"
-        end,
-    }
+        -- Bottom status line
+        use {
+            "hoob3rt/lualine.nvim",
+            config = function()
+                require "configs.lualine"
+            end
+        }
 
-    use {
-        "ap/vim-buftabline",
-        config = function()
-            require "configs.buftabline"
-        end,
-    }
+        -- Show open files as tabs
+        use {
+            "ap/vim-buftabline",
+            config = function()
+                require "configs.buftabline"
+            end
+        }
 
+        -- Best syntax highlight
+        use {
+            "nvim-treesitter/nvim-treesitter",
+            run = ":TSUpdate",
+            config = function()
+                require "configs.treesitter"
+            end
+        }
 
-    use {
-        "nvim-treesitter/nvim-treesitter",
-        run = ":TSUpdate",
-        config = function()
-            require "configs.treesitter"
-        end,
-    }
+        -- LSP. Use :CocInstall to install language servers
+        use {
+            "neoclide/coc.nvim",
+            branch = "release",
+            event = "BufRead"
+        }
 
-    -- use {
-    -- 	"neoclide/coc.nvim",
-    -- 	branch = "release",
-    -- 	event = "BufRead",
-    -- }
+        -- Use the "s" key to jump in the code
+        use {
+            "ggandor/lightspeed.nvim",
+            config = function()
+                require "configs.lightspeed"
+            end
+        }
 
-    use {
-        "ms-jpq/coq_nvim",
-        branch = 'coq',
-        after = 'nvim-treesitter'
-    }
+        -- Alternative to lightspeed
+        -- use {
+        --    "justinmk/vim-sneak",
+        --    keys = {"S", "s"}
+        -- }
 
-    use {
-        "ms-jpq/coq.artifacts",
-        branch = 'artifacts',
-        after = 'coq_nvim',
-    }
+        -- Classic file tree explorer
+        use {
+            "scrooloose/nerdtree",
+            cmd = {"NERDTreeToggle", "NERDTreeFind"},
+            config = function()
+                require "configs.nerdtree"
+            end
+        }
 
-    use {
-        "neovim/nvim-lspconfig",
-        after = 'coq.artifacts',
-        config = function() require 'configs.lspconfig' end
-    }
+        -- Smooth scroll pressing Control + F and Control + B
+        use {"psliwka/vim-smoothie"}
 
-    use {
-        "justinmk/vim-sneak",
-        keys = { 'S', 's' }
-    }
+        -- To change parents, brackets, in pairs
+        use {"tpope/vim-surround"}
 
-    --   use "alvan/vim-closetag" -- for html autoclosing tag
-    use {
-        "terrortylor/nvim-comment",
-        cmd = "CommentToggle",
-        config = function()
-            require "configs.nvim-comment"
-        end
-    }
-
-    use {
-        "scrooloose/nerdtree",
-        cmd = { "NERDTreeToggle", "NERDTreeFind" },
-        config = function()
-            require "configs.nerdtree"
-        end
-    }
-
-    use {
-        "honza/vim-snippets",
-        event = "InsertEnter *"
-    }
-
-    use { "tpope/vim-surround" }
-
-    use {
-        "nvim-telescope/telescope.nvim",
-        cmd = "Telescope",
-        requires = {
-            {
-                "nvim-lua/plenary.nvim",
+        -- Modal menu to search in the code and open files with fuzzy
+        use {
+            "nvim-telescope/telescope.nvim",
+            cmd = "Telescope",
+            requires = {
+                {
+                    "nvim-lua/plenary.nvim"
+                },
+                {
+                    "nvim-telescope/telescope-fzf-native.nvim",
+                    run = "make"
+                },
+                {
+                    "nvim-telescope/telescope-media-files.nvim"
+                }
             },
-            -- {
-            --     "fannheyward/telescope-coc.nvim",
-            -- },
-            {
-                "nvim-telescope/telescope-fzf-native.nvim",
-                run = "make",
-            },
-            {
-                "nvim-telescope/telescope-media-files.nvim",
-            },
-        },
-        config = function()
-            require "configs.telescope"
-        end,
-    }
+            config = function()
+                require "configs.telescope"
+            end
+        }
+    end
+)
 
-end)
