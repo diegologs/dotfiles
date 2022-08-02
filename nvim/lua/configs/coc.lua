@@ -1,2 +1,2 @@
 vim.updatetime=100
-vim.pumheight=20
+vim.pumheight=25
