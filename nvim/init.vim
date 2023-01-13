@@ -24,8 +24,19 @@ set nohlsearch              " Clear search highlights
 
 set splitbelow splitright   " Set the splits to open at the right side and below
 
+" No swap files pls, use git
+set noswapfile
+set nobackup
+
 " Load the colorscheme
-colorscheme tokyonight
+" colorscheme tokyonight-night
+
+" Load light colorscheme
+" colorscheme solarized
+
+" Treat this extensions as html
+autocmd BufNewFile,BufRead *.liquid set filetype=html
+autocmd BufNewFile,BufRead *.njk set filetype=html
 
 " Enables cursor line position tracking:
 set cursorline
@@ -71,13 +82,7 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Working with buffers is cool.
 set hidden
-map <C-d>  :bnext<CR>
-map <C-a>  :bprev<CR>
-imap <C-D> <Esc>:bnext<CR>a
-imap <C-A> <Esc>:bprev<CR>a
-
 
 " Move up/down in wrapped lines by display lines
 noremap <silent> <Up> gk
@@ -114,25 +119,24 @@ nnoremap <silent> <C-q> :lclose<bar>b#<bar>bd #<CR>
 nmap <Leader>t :CommentToggle<cr>
 vmap <Leader>t :CommentToggle<cr>
 
-" NERDTree: map ,nt for toggling NERDTree. Faster than the old :NT command
-" since I don't have to hold Shift whenever I want to display NERDTree.
-nmap <Leader>nt :NERDTreeToggle<cr>
-map <Leader>nf :NERDTreeFind<CR>
-
-" If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
-autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
-    \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+" Tree file explorer on the side
+nmap <Leader>nt :NvimTreeToggle<cr>
+map <Leader>nf :NvimTreeFindFile<CR>
 
 " Telescope
-nmap <C-P> :Telescope find_files hidden=true <CR>
-nmap <C-T> :Telescope live_grep <CR>
-nmap <C-Y> :Telescope coc document_symbols <CR>
-nmap <C-U> :Telescope buffers <CR>
+" nmap <C-P> :Telescope git_files hidden=true <CR>
+" nmap <Leader>pf :Telescope find_files hidden=true <CR>
+" nmap <C-T> :Telescope live_grep <CR>
+" nmap <C-Y> :Telescope coc document_symbols <CR>
+" nmap <C-U> :Telescope buffers <CR>
 
 " Relative numbering is pretty useful for motions (3g, 5k...). However I'd
 " prefer to have a way for switching relative numbers with a single map.
 nmap <F5> :set invrelativenumber<CR>
 imap <F5> <ESC>:set invrelativenumber<CR>a
+
+" Coc rename
+nmap <leader>rn <Plug>(coc-rename)
 
 " Coc GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
@@ -140,10 +144,24 @@ nmap <leader>gr <Plug>(coc-references)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>rn <Plug>(coc-rename)
 
+" FZF
+let g:fzf_layout = { 'down':  '40%'}
+
+" Fzf to search files mapped into Control + P and ignore .gitignore files
+nmap <C-P> :GFiles --cached --others --exclude-standard<CR>
+nmap <C-U> :Buffers<CR>
+
+" Search text inside project files using Control + T
+nmap <C-T> :Rg<CR>
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
+  \   fzf#vim#with_preview(), <bang>0)
+
 " Make <CR> to accept selected completion item or notify coc.nvim to format
 " <C-g>u breaks current undo, please make your own choice.
 inoremap <silent><expr> <Tab> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+                              \: "\<Tab>"
 
 " Use <c-space> to trigger completion.
 if has('nvim')

@@ -24,12 +24,27 @@ function()
   use 'wbthomason/packer.nvim'
 
   -- Best colorscheme --
+  -- use {
+  --   "folke/tokyonight.nvim",
+  --   config = function()
+  --     require "configs.tokyonight"
+  --   end
+  -- }
+
+  -- -- Best light colorscheme --
+  -- use 'shaunsingh/solarized.nvim'
+
+  -- Another theme
   use {
-    "folke/tokyonight.nvim",
+    "catppuccin/nvim",
+    as = "catppuccin",
     config = function()
-      require "configs.tokyonight"
+        vim.api.nvim_command "colorscheme catppuccin-mocha"
     end
-  }
+}
+
+  -- Needed in other plugins
+  use "nvim-lua/plenary.nvim"
 
   -- Bottom status line
   use {
@@ -48,6 +63,15 @@ function()
     end
   })
 
+  -- To comment things
+  use({
+    "terrortylor/nvim-comment",
+    config = function()
+      require('nvim_comment').setup({
+    })
+    end
+  })
+
   -- Don't move vertically in buffer on windows event like opening buffer
   use {
     "luukvbaal/stabilize.nvim",
@@ -55,12 +79,12 @@ function()
   }
 
   -- Show open files as tabs
-  use {
-    "ap/vim-buftabline",
-    config = function()
-      require "configs.buftabline"
-    end
-  }
+  -- use {
+  --   "ap/vim-buftabline",
+  --   config = function()
+  --     require "configs.buftabline"
+  --   end
+  -- }
 
   -- Best syntax highlight
   use {
@@ -86,47 +110,71 @@ function()
     end
   }
 
-  -- Alternative to lightspeed
-  -- use {
-    --    "justinmk/vim-sneak",
-    --    keys = {"S", "s"}
-    -- }
+  -- Maximize splitted windows
+  use { "anuvyklack/windows.nvim",
+   requires = {
+      "anuvyklack/middleclass",
+   },
+   config = function()
+      vim.o.winwidth = 10
+      vim.o.winminwidth = 10
+      vim.o.equalalways = false
+      require('windows').setup()
+   end
+  }
 
-    -- Classic file tree explorer
+    -- Command :Neogen to generate anotations in functions (JSDoc)
     use {
-      "scrooloose/nerdtree",
-      cmd = {"NERDTreeToggle", "NERDTreeFind"},
+      "danymat/neogen",
       config = function()
-        require "configs.nerdtree"
+        require('neogen').setup {}
+      end,
+      tag = "*"
+    }
+
+    -- Tree file explorer
+    use {
+      "kyazdani42/nvim-tree.lua",
+      cmd = {"NvimTreeToggle", "NvimTreeFindFile"},
+      config = function()
+        require "configs.nvim-tree"
       end
     }
 
     -- Smooth scroll pressing Control + F and Control + B
-    use {"psliwka/vim-smoothie"}
+  use({
+    "karb94/neoscroll.nvim",
+    config = function()
+      require('neoscroll').setup()
+    end
+  })
 
     -- To change parents, brackets, in pairs
     use {"tpope/vim-surround"}
 
+    use { 'junegunn/fzf', run = ":call fzf#install()" }
+    use { 'junegunn/fzf.vim' }
+
     -- Modal menu to search in the code and open files with fuzzy
-    use {
-      "nvim-telescope/telescope.nvim",
-      cmd = "Telescope",
-      requires = {
-        {
-          "nvim-lua/plenary.nvim"
-        },
-        {
-          "nvim-telescope/telescope-fzf-native.nvim",
-          run = "make"
-        },
-        {
-          "nvim-telescope/telescope-media-files.nvim"
-        }
-      },
-      config = function()
-        require "configs.telescope"
-      end
-    }
+    -- use {
+    --   "nvim-telescope/telescope.nvim",
+    --   cmd = "Telescope",
+    --   requires = {
+    --     {
+    --       "nvim-lua/plenary.nvim"
+    --     },
+    --     {
+    --       "nvim-telescope/telescope-fzf-native.nvim",
+    --       run = "make"
+    --     },
+    --     {
+    --       "nvim-telescope/telescope-media-files.nvim"
+    --     }
+    --   },
+    --   config = function()
+    --     require "configs.telescope"
+    --   end
+    -- }
   end
   )
 
