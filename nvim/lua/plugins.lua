@@ -142,12 +142,7 @@ function()
     }
 
     -- Smooth scroll pressing Control + F and Control + B
-  use({
-    "karb94/neoscroll.nvim",
-    config = function()
-      require('neoscroll').setup()
-    end
-  })
+    use {"psliwka/vim-smoothie"}
 
     -- To change parents, brackets, in pairs
     use {"tpope/vim-surround"}

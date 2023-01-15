@@ -120,12 +120,6 @@ _G.packer_plugins = {
     path = "/home/dlopez/.local/share/nvim/site/pack/packer/start/neogen",
     url = "https://github.com/danymat/neogen"
   },
-  ["neoscroll.nvim"] = {
-    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0" },
-    loaded = true,
-    path = "/home/dlopez/.local/share/nvim/site/pack/packer/start/neoscroll.nvim",
-    url = "https://github.com/karb94/neoscroll.nvim"
-  },
   ["nvim-comment"] = {
     config = { "\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17nvim_comment\frequire\0" },
     loaded = true,
@@ -169,6 +163,11 @@ _G.packer_plugins = {
     path = "/home/dlopez/.local/share/nvim/site/pack/packer/start/stay-in-place.nvim",
     url = "https://github.com/gbprod/stay-in-place.nvim"
   },
+  ["vim-smoothie"] = {
+    loaded = true,
+    path = "/home/dlopez/.local/share/nvim/site/pack/packer/start/vim-smoothie",
+    url = "https://github.com/psliwka/vim-smoothie"
+  },
   ["vim-surround"] = {
     loaded = true,
     path = "/home/dlopez/.local/share/nvim/site/pack/packer/start/vim-surround",
@@ -183,10 +182,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: catppuccin
-time([[Config for catppuccin]], true)
-try_loadstring("\27LJ\2\nQ\0\0\3\0\4\0\0066\0\0\0009\0\1\0009\0\2\0'\2\3\0B\0\2\1K\0\1\0!colorscheme catppuccin-mocha\17nvim_command\bapi\bvim\0", "config", "catppuccin")
-time([[Config for catppuccin]], false)
 -- Config for: stay-in-place.nvim
 time([[Config for stay-in-place.nvim]], true)
 try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\18stay-in-place\frequire\0", "config", "stay-in-place.nvim")
@@ -195,10 +190,14 @@ time([[Config for stay-in-place.nvim]], false)
 time([[Config for nvim-treesitter]], true)
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23configs.treesitter\frequire\0", "config", "nvim-treesitter")
 time([[Config for nvim-treesitter]], false)
--- Config for: windows.nvim
-time([[Config for windows.nvim]], true)
-try_loadstring("\27LJ\2\nå\1\0\0\3\0\b\0\0186\0\0\0009\0\1\0)\1\n\0=\1\2\0006\0\0\0009\0\1\0)\1\n\0=\1\3\0006\0\0\0009\0\1\0+\1\1\0=\1\4\0006\0\5\0'\2\6\0B\0\2\0029\0\a\0B\0\1\1K\0\1\0\nsetup\fwindows\frequire\16equalalways\16winminwidth\rwinwidth\6o\bvim\0", "config", "windows.nvim")
-time([[Config for windows.nvim]], false)
+-- Config for: neogen
+time([[Config for neogen]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vneogen\frequire\0", "config", "neogen")
+time([[Config for neogen]], false)
+-- Config for: catppuccin
+time([[Config for catppuccin]], true)
+try_loadstring("\27LJ\2\nQ\0\0\3\0\4\0\0066\0\0\0009\0\1\0009\0\2\0'\2\3\0B\0\2\1K\0\1\0!colorscheme catppuccin-mocha\17nvim_command\bapi\bvim\0", "config", "catppuccin")
+time([[Config for catppuccin]], false)
 -- Config for: lightspeed.nvim
 time([[Config for lightspeed.nvim]], true)
 try_loadstring("\27LJ\2\n2\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\23configs.lightspeed\frequire\0", "config", "lightspeed.nvim")
@@ -207,10 +206,6 @@ time([[Config for lightspeed.nvim]], false)
 time([[Config for nvim-comment]], true)
 try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\17nvim_comment\frequire\0", "config", "nvim-comment")
 time([[Config for nvim-comment]], false)
--- Config for: neogen
-time([[Config for neogen]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\vneogen\frequire\0", "config", "neogen")
-time([[Config for neogen]], false)
 -- Config for: stabilize.nvim
 time([[Config for stabilize.nvim]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14stabilize\frequire\0", "config", "stabilize.nvim")
@@ -219,10 +214,10 @@ time([[Config for stabilize.nvim]], false)
 time([[Config for lualine.nvim]], true)
 try_loadstring("\27LJ\2\n/\0\0\3\0\2\0\0046\0\0\0'\2\1\0B\0\2\1K\0\1\0\20configs.lualine\frequire\0", "config", "lualine.nvim")
 time([[Config for lualine.nvim]], false)
--- Config for: neoscroll.nvim
-time([[Config for neoscroll.nvim]], true)
-try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14neoscroll\frequire\0", "config", "neoscroll.nvim")
-time([[Config for neoscroll.nvim]], false)
+-- Config for: windows.nvim
+time([[Config for windows.nvim]], true)
+try_loadstring("\27LJ\2\nå\1\0\0\3\0\b\0\0186\0\0\0009\0\1\0)\1\n\0=\1\2\0006\0\0\0009\0\1\0)\1\n\0=\1\3\0006\0\0\0009\0\1\0+\1\1\0=\1\4\0006\0\5\0'\2\6\0B\0\2\0029\0\a\0B\0\1\1K\0\1\0\nsetup\fwindows\frequire\16equalalways\16winminwidth\rwinwidth\6o\bvim\0", "config", "windows.nvim")
+time([[Config for windows.nvim]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
