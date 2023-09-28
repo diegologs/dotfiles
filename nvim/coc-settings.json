@@ -3,8 +3,6 @@
   "suggest.maxCompleteItemCount": 16,
   "typescript.preferences.quoteStyle": "double",
   "javascript.preferences.quoteStyle": "double",
-  "typescript.suggest.completeFunctionCalls": false,
-  "javascript.suggest.completeFunctionCalls": false,
   "coc.preferences.formatOnSaveFiletypes": ["*"],
   "svelte.ask-to-enable-ts-plugin": false
 }

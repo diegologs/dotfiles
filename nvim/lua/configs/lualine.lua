@@ -6,11 +6,11 @@ end
 require("lualine").setup {
   options = {
     -- theme = "tokyonight",
-    theme = "embark"
+    theme = "auto"
   },
   sections = {
     lualine_a = { "mode" },
-    lualine_b = { "filename" },
+    lualine_b = {{'filename', path = 1}},
     lualine_c = { "g:coc_status" },
     lualine_x = { "branch" },
     lualine_y = { "encoding" },
