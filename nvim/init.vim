@@ -142,6 +142,7 @@ imap <F5> <ESC>:set invrelativenumber<CR>a
 
 " FZF
 let g:fzf_layout = { 'down':  '40%'}
+let g:fzf_preview_window = ['right,40%', 'ctrl-/']
 
 " Fzf to search files mapped into Control + P and ignore .gitignore files
 nmap <C-P> :GFiles --cached --others --exclude-standard<CR>
@@ -152,12 +153,12 @@ nmap <C-T> :Rg<CR>
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always --smart-case -- '.shellescape(<q-args>), 1,
-  \   fzf#vim#with_preview(), <bang>0)
+  \   fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}), <bang>0)
 
 
 " nvim-coc config
 "
-let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-tsserver', 'coc-css', 'coc-emmet']
+let g:coc_global_extensions = ['coc-json', 'coc-html', 'coc-tsserver', 'coc-css', 'coc-emmet', 'coc-prettier', 'coc-angular']
 
 " Having longer updatetime (default is 4000 ms = 4s) leads to noticeable
 " delays and poor user experience
@@ -239,10 +240,4 @@ imap <C-l> <Plug>(coc-snippets-expand)
 
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
-
-" Detele trailing spaces on save
-augroup CODING_POTIONS
-    autocmd!
-    autocmd BufWritePre * %s/\s\+$//e
-augroup END
 
